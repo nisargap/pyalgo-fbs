@@ -1,6 +1,6 @@
 from fbs_runtime.application_context import ApplicationContext,  cached_property
 from PyQt5.QtCore import Qt, QDate
-from PyQt5.QtWidgets import QWidget, QMainWindow, QLabel, QVBoxLayout, QVBoxLayout, QCalendarWidget
+from PyQt5.QtWidgets import QWidget, QMainWindow, QLabel, QGridLayout, QVBoxLayout, QCalendarWidget
 
 import sys
 
@@ -14,24 +14,45 @@ class AppContext(ApplicationContext):           # 1. Subclass ApplicationContext
     def window(self):
         return MainWindow()
 
+def createCalendar(ref, clickAction):
+    cal = QCalendarWidget(ref)
+    cal.setGridVisible(True)
+    cal.clicked[QDate].connect(clickAction)
+    return cal
+
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QVBoxLayout()
-        cal = QCalendarWidget(self)
-        cal.setGridVisible(True)
-        cal.clicked[QDate].connect(self.showDate)
-        layout.addWidget(cal)
+
+        layout = QGridLayout()
+
+        calFrom = createCalendar(self, self.showDate)
+        calTo = createCalendar(self, self.showDateTwo)
+
+        layout.addWidget(calFrom, 0, 0)
+        layout.addWidget(calTo, 0, 1)
+
         self.lbl = QLabel(self)
-        date = cal.selectedDate()
+        self.lblTwo = QLabel(self)
+
+        date = calFrom.selectedDate()
+        dateTwo = calTo.selectedDate()
+
         self.lbl.setText(date.toString())
-        layout.addWidget(self.lbl)
+        self.lblTwo.setText(dateTwo.toString())
+
+        layout.addWidget(self.lbl, 1, 0)
+        layout.addWidget(self.lblTwo, 1, 1)
+
         self.setLayout(layout)
         self.setGeometry(300, 300, 350, 300)
-        self.setWindowTitle('Calendar')
+        self.setWindowTitle('Equities data')
         self.show()
+
     def showDate(self, date): 
         self.lbl.setText(date.toString())
+    def showDateTwo(self, date):
+        self.lblTwo.setText(date.toString())
         
         
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ fbs = "*"
 "pyqt5" = "==5.9.2"
 pyinstaller = "==3.3.1"
 requests = "*"
+pyalgotrade = "*"
 
 [dev-packages]
 
