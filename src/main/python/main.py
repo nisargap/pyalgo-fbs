@@ -29,30 +29,42 @@ class MainWindow(QWidget):
         calFrom = createCalendar(self, self.showDate)
         calTo = createCalendar(self, self.showDateTwo)
 
-        layout.addWidget(calFrom, 0, 0)
-        layout.addWidget(calTo, 0, 1)
+        titleFromLbl = QLabel(self)
+        titleFromLbl.setText("Select a from date: ")
+        titleToLbl = QLabel(self)
+        titleToLbl.setText("Select a to date: ")
+        titleFromLbl.setMaximumHeight(20)
+        titleToLbl.setMaximumHeight(20)
+
+        layout.addWidget(titleFromLbl, 0, 0)
+        layout.addWidget(calFrom, 1, 0)
+        
+        layout.addWidget(titleToLbl, 0, 1)
+        layout.addWidget(calTo, 1, 1)
 
         self.lbl = QLabel(self)
         self.lblTwo = QLabel(self)
 
+        self.lbl.setAlignment(Qt.AlignTop)
+        self.lblTwo.setAlignment(Qt.AlignTop)
+
         date = calFrom.selectedDate()
         dateTwo = calTo.selectedDate()
 
-        self.lbl.setText(date.toString())
-        self.lblTwo.setText(dateTwo.toString())
+        self.lbl.setText("Selected from date: " + date.toString())
+        self.lblTwo.setText("Selected to date: " + dateTwo.toString())
 
-        layout.addWidget(self.lbl, 1, 0)
-        layout.addWidget(self.lblTwo, 1, 1)
-
+        layout.addWidget(self.lbl, 2, 0)
+        layout.addWidget(self.lblTwo, 2, 1)
         self.setLayout(layout)
         self.setGeometry(300, 300, 350, 300)
         self.setWindowTitle('Equities data')
         self.show()
 
     def showDate(self, date): 
-        self.lbl.setText(date.toString())
+        self.lbl.setText("Selected from date: " + date.toString())
     def showDateTwo(self, date):
-        self.lblTwo.setText(date.toString())
+        self.lblTwo.setText("Selected to date: " + date.toString())
         
         
 if __name__ == '__main__':
