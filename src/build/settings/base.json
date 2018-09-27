@@ -1,5 +1,5 @@
 {
-    "app_name": "pyalgo-backtest",
+    "app_name": "pyalgo-back",
     "main_module": "src/main/python/main.py",
     "author": "AZ"
 }
