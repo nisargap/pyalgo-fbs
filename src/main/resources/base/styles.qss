@@ -1,10 +1,15 @@
-QLabel {
-    min-width: 20em;
-    max-width: 30em;
-    min-height: 7em;
-    font-style: italic;
-}
+
 
 QPushButton {
     max-width: 10em;
+}
+QGridLayout {
+    height: 500px;
+    margin: 10px;
+    padding: 10px;
+}
+QVBoxLayout {
+    padding: 0;
+    margin: 0;
+    border-width: 2px;
 }
